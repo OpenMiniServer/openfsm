@@ -1,50 +1,47 @@
 # OpenFSM
-A simple and easy-to-use C++ finite state machine.
+一个简单易用的C++有限状态机。
 
-**The OpenLinyou project designs a cross-platform server framework. Write code in VS or XCode and run it on Linux without any changes, even on Android and iOS.**
+**OpenLinyou项目设计跨平台服务器框架，在VS或者XCode上写代码，无需任何改动就可以编译运行在Linux上，甚至是安卓和iOS.**
 OpenLinyou：https://github.com/openlinyou
-OpenThread:https://github.com/openlinyou/openthread
-https://gitee.com/linyouhappy/openthread
+https://gitee.com/linyouhappy
 
-## Compilation and execution
-Please install the cmake tool. With cmake you can build a VS or XCode project and compile and run it on VS or XCode. 
-Source code:https://github.com/openlinyou/openfsm
+## 编译和执行
+请安装cmake工具，用cmake构建工程，可以在vs或者xcode上编译运行。
+源代码：https://github.com/openlinyou/openfsm
+https://gitee.com/linyouhappy/openfsm
 ```
-# Clone the project
+#克隆项目
 git clone https://github.com/openlinyou/openfsm
 cd ./openfsm
-# Create a build project directory
+#创建build工程目录
 mkdir build
 cd build
 cmake ..
-# If it's win32, openfsm.sln will appear in this directory. Click it to start VS for coding and debugging.
+#如果是win32，在该目录出现openfsm.sln，点击它就可以启动vs写代码调试
 make
 ./test
 ```
 
-## All source files
+## 全部源文件
 + src/openfsm.h
 + src/openfsm.cpp
 
 
-## Finite State Machine Design for a Spaceship
+## 有限状态机设计星舰
 
-The spaceship has four states: Ground Pressure Test (StateTest), Ignition Launch (StateLaunch), Recovery Return (ActionReturn), and Launch Failure (StateFailure).
+星舰有四种状态：地面压力测试（StateTest）,点火发射升空（StateLaunch），回收返航（ActionReturn）和发射失败（StateFailure）。
 
+每一个状态由几个行为组成。这样，多个行为组成一个状态，多个状态组成一个状态机。
+1. 地面压力测试（StateTest）：引擎测试（ActionTestEngine）和燃料罐测试（ActionTestTank）；
+2. 点火发射升空（StateLaunch）：星舰点火（ActionFireUp）和发射升空（ActionLaunch）；
+3. 回收返航（ActionReturn）：返回地面回收（ActionReturn）；
+4. 发射失败（StateFailure）：发射失败（ActionFailure）；
 
-Each state consists of several actions. In this way, multiple actions make up a state, and multiple states make up a state machine.
-1. Ground Pressure Test (StateTest): Engine Test (ActionTestEngine) and Fuel Tank Test (ActionTestTank);
-2. Ignition Launch (StateLaunch): Spaceship Ignition (ActionFireUp) and Launch Lift-off (ActionLaunch);
-3. Recovery Return (ActionReturn): Return to Ground for Recovery (ActionReturn);
-4. Launch Failure (StateFailure): Launch Failure(ActionFailure);
+状态切换。有两种状态切换。
+1. 地面压力测试（StateTest）如果成功，就切换到点火发射升空（StateLaunch），否则，切换到发射失败（StateFailure）
+2. 点火发射升空（StateLaunch）如果成功，就切换到回收返航（ActionReturn），否则，切换到发射失败（StateFailure）
 
-
-State transitions. There are two types of state transitions.
-1. If the Ground Pressure Test(StateTest) is successful, it switches to Ignition Launch(StateLaunch), otherwise it switches to Launch Failure(StateFailure).
-2. If the Ignition Launch(StateLaunch) is successful, it switches to Recovery Return(ActionReturn), otherwise it switches to Launch Failure(StateFailure).
-
-
-Before creating the state machine, register the actions first.
+在创建状态机之前，先进行动作注册。
 ```C++
 OpenFSM::RegisterAction<ActionTestEngine>("ActionTestEngine");
 OpenFSM::RegisterAction<ActionTestTank>("ActionTestTank");
@@ -54,7 +51,7 @@ OpenFSM::RegisterAction<ActionReturn>("ActionReturn");
 OpenFSM::RegisterAction<ActionFailure>("ActionFailure");
 ```
 
-Select a set of actions to form a state. There are four states in total.
+选择一组动作，组成一个状态。共四个状态。
 ```C++
     OpenFSM::RegisterState("StateTest", { "ActionTestEngine", "ActionTestTank" }, EStateTest);
     OpenFSM::RegisterState("StateLaunch", { "ActionFireUp", "ActionLaunch" }, EStateLaunch);
@@ -62,13 +59,13 @@ Select a set of actions to form a state. There are four states in total.
     OpenFSM::RegisterState("StateFailure", { "ActionFailure"}, EStateFailure);
 ```
 
-Specify that the state can switch to the next state. For example, if the spaceship is dealing with a launch failure explosion state, it cannot switch to other states.
+指定状态可以切换到下一个状态。例如，星舰处理发射失败爆炸状态，那就无法切换到其他状态。
 ```C++
 OpenFSM::RegisterRelation("StateTest", { "StateLaunch", "StateFailure" });
 OpenFSM::RegisterRelation("StateLaunch", { "StateRecycle", "StateFailure" });
 ```
 
-Complete design code
+完整设计代码
 ```C++
 #include <assert.h>
 #include <time.h>

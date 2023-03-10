@@ -1,0 +1,12 @@
+
+CMAKE_MINIMUM_REQUIRED(VERSION 3.12.1)
+PROJECT(openfsm)
+
+include_directories(src)
+include_directories(test)
+
+add_executable(test 
+	src/openfsm.h 
+	src/openfsm.cpp 
+	test/test.cpp
+)
