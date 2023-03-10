@@ -1,7 +1,7 @@
 # OpenFSM
 一个简单易用的C++有限状态机。
 
-**OpenLinyou项目设计跨平台服务器框架，在VS或者XCode上写代码，无需任何改动就可以编译运行在Linux上，甚至是安卓和iOS.**
+**OpenLinyou项目致力于跨平台服务器框架，在VS或者XCode上写代码，无需任何改动就可以编译运行在Linux上，甚至是安卓和iOS.**
 OpenLinyou：https://github.com/openlinyou
 https://gitee.com/linyouhappy
 
