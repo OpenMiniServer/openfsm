@@ -65,6 +65,15 @@ OpenFSM::RegisterRelation("StateTest", { "StateLaunch", "StateFailure" });
 OpenFSM::RegisterRelation("StateLaunch", { "StateRecycle", "StateFailure" });
 ```
 
+组装状态机,可以用状态名称或者id进行组装。
+如果是传统火箭，只有三个状态StateTest, StateLaunch, StateFailure
+星舰有回收状态，只有三个状态StateTest, StateLaunch, StateRecycle, StateFailure
+
+```C++
+openFSM_.setStates({ "StateTest", "StateLaunch", "StateRecycle", "StateFailure" });
+openFSM_.setStates({ EStateTest, EStateLaunch, EStateRecycle, EStateFailure });
+```
+
 完整设计代码
 ```C++
 #include <assert.h>
