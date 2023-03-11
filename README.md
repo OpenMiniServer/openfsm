@@ -68,6 +68,15 @@ OpenFSM::RegisterRelation("StateTest", { "StateLaunch", "StateFailure" });
 OpenFSM::RegisterRelation("StateLaunch", { "StateRecycle", "StateFailure" });
 ```
 
+Assemble the state machine, which can be assembled using state names or ids. 
+If it is a traditional rocket, there are only three states: StateTest, StateLaunch, StateFailure. 
+Starship has a recycling state, with four states: StateTest, StateLaunch, StateRecycle, StateFailure.
+```C++
+openFSM_.setStates({ "StateTest", "StateLaunch", "StateRecycle", "StateFailure" });
+//or
+openFSM_.setStates({ EStateTest, EStateLaunch, EStateRecycle, EStateFailure });
+```
+
 Complete design code
 ```C++
 #include <assert.h>
