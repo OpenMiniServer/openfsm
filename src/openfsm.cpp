@@ -5,7 +5,7 @@
  * copies of the Software, and permit persons to whom the Software is
  * furnished to do so, under the terms of the COPYING file.
  ***************************************************************************/
-#include "openfsm.h"
+#include "openfsm.hpp"
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
