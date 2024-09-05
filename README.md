@@ -1,10 +1,6 @@
 # OpenFSM
 A simple and easy-to-use C++ finite state machine.
 
-**The OpenLinyou project designs a cross-platform server framework. Write code in VS or XCode and run it on Linux without any changes, even on Android and iOS.**
-OpenLinyou：https://github.com/openlinyou
-OpenThread:https://github.com/openlinyou/openthread
-https://gitee.com/linyouhappy/openthread
 
 ## Compilation and execution
 Please install the cmake tool. With cmake you can build a VS or XCode project and compile and run it on VS or XCode. 
